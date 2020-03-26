@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react"
-import { Box, Text, Color, StdinContext, StdoutContext } from "ink"
+import { Box, Text, Color, useInput, StdoutContext } from "ink"
 import { useMachine } from "@xstate/react"
 import { Machine } from "xstate"
 const open = require("open")
@@ -41,19 +41,6 @@ const toggleMachine = Machine({
     },
   },
 })
-
-const useKeyHandler = keyHandler => {
-  const { stdin, setRawMode } = useContext(StdinContext)
-
-  useEffect(() => {
-    setRawMode(true)
-    stdin.on("data", keyHandler)
-    return () => {
-      stdin.off("data", keyHandler)
-      setRawMode(false)
-    }
-  }, [stdin, setRawMode])
-}
 
 const useTerminalResize = () => {
   const { stdout } = useContext(StdoutContext)
@@ -105,7 +92,7 @@ const CLI = props => {
   })
 
   const [lastKey, setKey] = useState(``)
-  useKeyHandler(keypress => {
+  useInput(keypress => {
     // Work around xstate's lack of catch all
     if (current.value === `OpeningLink` && keypress !== `s`) {
       send(`RETURN_TO_IDLE`)

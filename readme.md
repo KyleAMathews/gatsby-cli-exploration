@@ -6,7 +6,7 @@
 
 There are 2 available commands:
 
-- `npm run dev` - Start development mode and recompile on change
+- `npm run dev` - Start development mode and recompile on change. Type `testing` in another terminal to run the app.
 - `npm run build` - Build a final distributable for npm
 
 Run the built file by `node build/cli.js`
