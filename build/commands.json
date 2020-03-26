@@ -1,0 +1,11 @@
+{
+	"commands": [
+		{
+			"path": "index.js",
+			"name": "index",
+			"description": "",
+			"args": [],
+			"subCommands": []
+		}
+	]
+}
